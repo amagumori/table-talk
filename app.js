@@ -1,20 +1,11 @@
-
-/**
- * Module dependencies
- */
-
 var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  RedisStore = require('connect-redis')(express);
 
 var app = module.exports = express();
-
-
-/**
- * Configuration
- */
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -25,6 +16,19 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
+
+app.sessionStore = new RedisStore({
+  port : 6379,
+  host : 'localhost'
+});
+
+app.use(express.session({
+  secret : "changethis",
+  store: app.sessionStore,
+  cookie: { 
+    maxAge: 14400000
+  }
+}));
 
 // development only
 if (app.get('env') === 'development') {

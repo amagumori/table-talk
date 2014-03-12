@@ -1,30 +1,151 @@
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+/** Main styles go here **/
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+
+section.container {
+  width: 100%;
+  max-width: 100%;
 }
 
-.menu:before {
-  content: "[";
+::selection {
+  background: #ffde00; /* Safari */
 }
 
-.menu:after {
-  content: "]";
+::-moz-selection {
+  background: #ffde00; /* Firefox */
 }
 
-.menu > li {
-  display: inline;
+html, body {
+  margin-top: 0;
+  height: 100%;
+  font-family: 'PT Sans', sans-serif;
 }
 
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+body {
+    margin: 24px 0;
 }
 
-.menu > li:nth-child(1):before {
-  content: "";
+.conversations {
+  background: #dee4d9;
   padding: 0;
 }
+
+.article {
+  background: #fafcf1;
+}
+
+.articlebody {
+  margin: 12.5%;
+  line-height: 18px;
+}
+
+.articlebody:first-child:first-letter {
+    float: left;
+    font-size: 52px;
+    line-height: 32px;
+    padding-right: 2px;
+    right: -4px;
+  }
+
+.pages {
+  background: #fafcf1;
+}
+
+.comment { 
+  position: relative;
+  background: #fafcf1;
+  box-shadow: 0 5px 5px -5px #333;
+  overflow: hidden;
+}
+
+.commentbody {
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    margin: 2%;
+    display: inline-block;
+    height: 100%;
+  }
+
+.user {
+  
+  display: inline-block;
+  width: 20%;
+  margin: 2%;
+  text-align: center;
+
+}
+
+.user .avatar { 
+    width: 52px;
+    height: 52px;
+    background: #2a536a;
+    margin: 2% auto 2% auto;
+  }
+
+.date { 
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.replybtn { 
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  height: 100%;
+  width: 32px;
+  background: #b3d552;
+}
+
+.replybtn:hover {
+    background: #8CEC4F;
+  }
+
+.fa-reply {
+  color: white;
+  position: relative;
+  top: 40%;
+}
+
+.prev {
+  float: left;
+}
+
+.next {
+  float: right;
+}
+
+/* http://osvaldas.info/elegant-css-and-jquery-tooltip-responsive-mobile-friendly */
+
+
+.tip
+{
+    text-align: center;
+    content: attr('title');
+    color: #fff;
+    background: rgba(18, 18, 18, 0.5);
+    position: absolute;
+    bottom: 20px;
+    z-index: 100;
+    padding: 8px;
+    border-radius: 4px;
+}
+ 
+    .tip:after /* triangle decoration */
+    {
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid rgba(18, 18, 18, 0.5);
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        margin-left: -6px;
+    }

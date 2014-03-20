@@ -4,8 +4,8 @@ var Article = require('../backend/models/article')
   , Comment = require('../backend/models/comment')
 
 /*
- * Serve JSON to our AngularJS client
- */
+ *  * Serve JSON to our AngularJS client
+ *   */
 
 exports.name = function (req, res) {
   res.json({
@@ -65,12 +65,12 @@ exports.deleteArticle = function(req, res) {
       if (err) throw err
       res.end(200)
     })
-  })
+  }
 }
 
 /* CONVERSATION CONTROLLERS 
- * harden inputs
- * POST /api/articles/:id/ */
+ *  * harden inputs
+ *   * POST /api/articles/:id/ */
 
 exports.createConversation = function(req, res) { 
   var conversation = JSON.parse(req.body)
@@ -81,7 +81,7 @@ exports.createConversation = function(req, res) {
 }
 
 /* COMMENT CONTROLLERS 
- * POST api/articles/:id/page/:id (?) */
+ *  * POST api/articles/:id/page/:id (?) */
 
 exports.createComment = function(req, res) { 
   var comment = JSON.parse(req.body)
@@ -98,7 +98,7 @@ exports.editComment = function(req, res) {
   Comment.save(comment, function(err, comment, aff) { 
     if (err) throw err
     if (aff === 1) { res.json(comment) }
-  })
+  }
 }
 
 /* DEL /api/articles/:id/page/:id (?) */
@@ -122,8 +122,9 @@ exports.editUser = function(req, res) {
 }
 
 /* DEL /api/users/:id 
- * delete all convos, comments, articles for this user */
+ *  * delete all convos, comments, articles for this user */
 
 exports.deleteUser = function(req, res) { 
 
 }
+

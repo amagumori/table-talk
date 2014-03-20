@@ -1,0 +1,25 @@
+extends layouts/layout
+
+block content
+  script(src='/js/lib/jquery.min.js')
+  script(src='/js/lib/jQuery.highlighter.js')
+  script(src='/js/jquery/selections.js')
+  .row.top
+    img#logo(ng-src='/img/tt-new.png')
+  .row.content
+    .col-lg-3.conversations
+      .comment(ng-repeat='comment in comments')
+        .user
+          .avatar
+          .date {{comment.date | date : 'MMM dd'}}
+        .commentbody I'm {{comment.name}}.  {{comment.body}}
+        i.fa.fa-reply
+    .col-lg-1.gutter.convo
+        a.commentptr(ng-repeat='comment in comments') {{comment.date | date : 'MMM dd'}}
+          i.fa.fa-asterisk
+    .col-lg-5.article 
+      .articlebody {{article}}
+    .col-lg-3.pages
+    span.tip
+      i.fa.fa-leaf
+      i.fa.fa-plus-circle

@@ -11,6 +11,10 @@ angular.module('tableTalk.controllers', []).
     success(function (data, status, headers, config) {
       $scope.name = data.name;
       $scope.comments = data.comments;
+      $scope.article = data.article;
+      $scope.set_pos = function(obj) { 
+        return { top : obj['offset'] }
+      }
     }).
     error(function (data, status, headers, config) {
       $scope.name = 'Error!';

@@ -2,10 +2,15 @@
 
 /** Main styles go here **/
 @import url(http://fonts.googleapis.com/css?family=PT+Sans);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:500,700);
 
 section.container {
   width: 100%;
   max-width: 100%;
+}
+
+.container-fluid {
+  height: 100%;
 }
 
 ::selection {
@@ -23,25 +28,42 @@ html, body {
 }
 
 body {
-    margin: 24px 0;
+    color: #fff;
+    margin: 0;
+    background: #2e2e2e;
+}
+
+.top {
+  height: 80px;
+  margin: 0;
+  padding: 8px 0px 0px 8px;
+}
+
+#logo {
+  height: 72px;
+  width: 72px;
 }
 
 .conversations {
-  background: #dee4d9;
-  padding: 0;
 }
 
 .article {
-  background: #fafcf1;
+  padding: 0;
+  height: 550px;
+  overflow: hidden;
 }
 
 .articlebody {
-  margin: 12.5%;
-  line-height: 18px;
+  margin: 0;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  line-height: 22px;
 }
 
 .articlebody:first-child:first-letter {
-    float: left;
+    //float: left;
     font-size: 52px;
     line-height: 32px;
     padding-right: 2px;
@@ -49,13 +71,12 @@ body {
   }
 
 .pages {
-  background: #fafcf1;
 }
 
 .comment { 
+  margin: 8px 0 8px 0;
+  padding: 3px;
   position: relative;
-  background: #fafcf1;
-  box-shadow: 0 5px 5px -5px #333;
   overflow: hidden;
 }
 
@@ -71,22 +92,21 @@ body {
 .user {
   
   display: inline-block;
-  width: 20%;
-  margin: 2%;
+  margin: 8px 4px 8px 0;
   text-align: center;
-
+  width: 40px;
 }
 
 .user .avatar { 
-    width: 52px;
-    height: 52px;
-    background: #2a536a;
+    width: 32px;
+    height: 32px;
+    background: #fff;
     margin: 2% auto 2% auto;
   }
 
 .date { 
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 11px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -98,7 +118,7 @@ body {
   bottom: 0;
   text-align: center;
   height: 100%;
-  width: 32px;
+  width: 18px;
   background: #b3d552;
 }
 
@@ -109,7 +129,9 @@ body {
 .fa-reply {
   color: white;
   position: relative;
+  right: 0;
   top: 40%;
+  left: 80%;
 }
 
 .prev {
@@ -122,30 +144,109 @@ body {
 
 /* http://osvaldas.info/elegant-css-and-jquery-tooltip-responsive-mobile-friendly */
 
-
 .tip
 {
+    font-size: 18px;
+    color: #cece61;
     text-align: center;
-    content: attr('title');
-    color: #fff;
-    background: rgba(18, 18, 18, 0.5);
+    content: ' ';
+    background: rgba(18, 18, 18, 1);
     position: absolute;
-    bottom: 20px;
     z-index: 100;
-    padding: 8px;
+    padding: 8px; 
     border-radius: 4px;
 }
- 
+
+.tip i {
+  margin: 4px;
+  //margin-left: 4px;
+}
+.tip:hover { 
+  background: rgba(36, 36, 36, 1);
+  color: #dede71;
+}
     .tip:after /* triangle decoration */
     {
         width: 0;
         height: 0;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
-        border-top: 6px solid rgba(18, 18, 18, 0.5);
+        border-top: 6px solid rgba(18, 18, 18, 1);
         content: '';
         position: absolute;
         left: 50%;
         bottom: -6px;
         margin-left: -6px;
     }
+
+    .tip:after:hover {
+      background: rgba(36, 36, 36, 1);
+    }
+
+#dropfile {
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.commentptr {
+  text-transform: uppercase;
+  display: block;
+  position: absolute;
+  color: #faa21b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.commentptr:hover {
+  text-decoration: none;
+  color: #fdcf0f;
+}
+
+.convoArrow {
+  left: 0;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  margin-top: 9px;
+  border-style: solid;
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent #faa21b;
+}
+
+.fa-asterisk {
+  margin: 8px;
+}
+
+.fa-leaf {
+}
+
+.note {
+  margin: 8px;
+  display: block;
+  position: absolute;
+  color: #cece61;
+}
+
+.note:hover {
+  color: #b7e560;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gutter {
+  font-family: 'Source Code Pro';
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 8px 8px 16px;
+  text-align: center;
+  border-left: 1px solid;
+  height: 100%;
+  min-height: 100%;
+}
+
+.holder {
+  display: none;
+  position: absolute;
+}

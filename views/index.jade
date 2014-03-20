@@ -1,16 +1,19 @@
 extends layouts/layout
 
 block content
+  script(type='text/javascript', src='/js/lib/jquery.min.js')
+  script(type='text/javascript', src='/js/lib/jQuery.highlighter.js')
+  script(type='text/javascript', src='/js/jquery/selections.js')
   .col-lg-3.conversations
     .comment(ng-repeat="comment in comments") 
       .user
         .avatar
         .date {{comment.date | date : 'MMM dd yyyy'}}
       .commentbody I'm {{comment.name}}.  {{comment.body}}
-      .replybtn
         i.fa.fa-reply
   .col-lg-6.article 
     .articlebody 
+      span.select testing selections.Lorem ipsum dolor sit amet, ne epicuri recusabo percipitur duo. Erat tractatos adipiscing sit ex, nec no eros dolorum. Vix mutat iuvaret adolescens ea, veri nostrud referrentur id his. Dolor consetetur te cum, aeque dicam consequuntur an usu, rebum sensibus imperdiet id quo. At pro perpetua, partiendo hendrerit omittantur no sea
     .prev
       i.fa.fa-chevron-left
     .next

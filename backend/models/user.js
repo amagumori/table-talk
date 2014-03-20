@@ -4,12 +4,14 @@ var mongoose = require('mongoose')
 
 var UserSchema = new Schema({
   name: { type: String },
+  av: { type : String },
   email: { type: String },
   pw: { type: String },
   salt: { type: String },
-  articles: [{ type: ObjectId }],
-  comments: [{ type: ObjectId }],
-  conversations: [{ type: ObjectId }]
+  articles: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation' }],
+  peers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 var validatePresenceOf = function (value) {   
@@ -41,5 +43,21 @@ UserSchema.methods = {
       next();
     }); 
   }
+}
+
+UserSchema.statics = {
+
+  load: function(id, cb) { 
+    this.findOne({ _id : id })
+    .populate('articles')
+    .populate('comments', { select: 'date body _id' })
+    .populate('conversations')
+    .exec(cb)
+  },
+  list: function(ids, cb) { 
+    
+  }
+
+}
 
 module.exports = mongoose.model('User', UserSchema);

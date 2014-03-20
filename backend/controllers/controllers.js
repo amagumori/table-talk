@@ -2,6 +2,7 @@ var Article = require('../backend/models/article')
   , User = require('../backend/models/user')
   , Conversation = require('../backend/models/conversation')
   , Comment = require('../backend/models/comment')
+  , docx = require('../backend/controllers/docx')
 
 /*
  *  * Serve JSON to our AngularJS client
@@ -128,3 +129,7 @@ exports.deleteUser = function(req, res) {
 
 }
 
+exports.testDocx = function(req, res) { 
+  docx()
+  res.send(200)
+}

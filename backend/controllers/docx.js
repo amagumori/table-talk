@@ -8,29 +8,38 @@ var parseString = require('xml2js').parseString
 /* change this back to exports = function(doc) after testing */
 
 module.exports = function() { 
-  fs.createReadStream(path.join(__dirname, "../../public/docs/test.docx"))
+  var doc = fs.createReadStream(path.join(__dirname, "../../public/docs/test.docx"))
     .pipe(unzip.Parse())
     .on("entry", function(entry) { 
+
       var fileName = entry.path
-      console.log(fileName)
+      console.log("files in zip: " + fileName)
+
       if (fileName == "word/document.xml") {
-        var oStream = fs.createWriteStream('./output.xml')
-        //entry.pipe(oStream)
-        process.stdout.pipe(oStream)
-        /*oStream.on('finish', function() { 
-          parseString("./output.xml", function(err, result) {
-            if (err) return console.log(err)
+        fs.createWriteStream('./output.xml')
+          .pipe(entry)
+          .on('finish', function() {
+            fs.readFile('./output.xml', { encoding : 'utf-8' }, function(err, data) { 
+              if (err) return callback(err)
+              if (data != undefined) {
+                //data = data.toString().replace('\ufeff', '')
+                console.log('the data is: ' + data)
+                parseString("data", function(err, result) {
+                  if (err) return console.log(err)
 
-            console.log(util.inspect(result, false, null))
-            console.dir(result["w:body"])
-            console.dir(result["w:p"])
-            console.dir(result["w:pStyle"])
-            console.dir(result["w:u"])
-            console.dir(result["w:b"])
-            console.dir(result["w:i"])
-
+                  console.log(util.inspect(result, false, null))
+                  console.dir(result["w:body"])
+                  console.dir(result["w:p"])
+                  console.dir(result["w:pStyle"])
+                  console.dir(result["w:u"])
+                  console.dir(result["w:b"])
+                  console.dir(result["w:i"])
+              })
+            }
           })
-        }) */
-      }
-    })
+        })
+      } else {
+        entry.autodrain()
+    }
+  })
 }

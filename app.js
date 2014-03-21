@@ -2,8 +2,7 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path'),
-  RedisStore = require('connect-redis')(express);
+  path = require('path')
 
 var app = module.exports = express();
 
@@ -17,14 +16,10 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
-app.sessionStore = new RedisStore({
-  port : 6379,
-  host : 'localhost'
-});
+app.use(express.cookieParser('this is supposed to be secret'))
 
-app.use(express.session({
+app.use(express.cookieSession({
   secret : "changethis",
-  store: app.sessionStore,
   cookie: { 
     maxAge: 14400000
   }
@@ -57,7 +52,7 @@ app.get('/api/name', api.name);
 //app.get('*', routes.index);
 
 // test docx
-app.get('/docx', api.testDocx);
+app.get('/docx', routes.docx);
 
 /**
  * Start Server

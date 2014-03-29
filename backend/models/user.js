@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
-  _ = require('underscore');
+  , _ = require('underscore')
+  , bcrypt = require('bcrypt')
 
 var UserSchema = new Schema({
   name: { type: String },

@@ -1,6 +1,7 @@
 var express = require('express'),
   http = require('http'),
-  path = require('path')
+  path = require('path'),
+  jwt = require('express-jwt')
 
 var app = module.exports = express();
 
@@ -14,7 +15,7 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
-require('./routes/routes')(app);
+require('./routes/routes')(app, jwt);
 
 app.use(express.cookieParser('this is supposed to be secret'))
 
@@ -35,24 +36,9 @@ if (app.get('env') === 'production') {
   // TODO
 }
 
-/**
- * Routes
- */
-/*
-// serve index and view partials
-app.get('/', routes.index);
-app.get('/index2', routes.index2);
-app.get('/partials/:name', routes.partials);
-
-// JSON API
-app.get('/api/name', api.name);
-
-// redirect all others to the index (HTML5 history)
-//app.get('*', routes.index);
-
-// test docx
-app.get('/docx', routes.docx);
-*/
+app.use('/api', jwt({ secret : secret }));
+app.use(express.json());
+app.use(express.urlencoded());
 
 /**
  * Start Server

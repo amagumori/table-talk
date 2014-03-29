@@ -6,7 +6,7 @@ angular.module('tableTalk.controllers', []).
   controller('AppCtrl', function ($scope, $http) {
     $http({
       method: 'GET',
-      url: '/api/name'
+      url: '/'
     }).
     success(function (data, status, headers, config) {
       $scope.name = data.name;
@@ -82,14 +82,31 @@ angular.module('tableTalk.controllers', []).
     .error(function (data, status, headers, config) { 
  
     }); 
-  
-
-  /*.
-  controller('postCommentCtrl', function ($scope, $http) {
+  }).
+  controller('convoCtrl', function ($scope, $http) {
     
     $http({
       method : 'POST',
-      url: '/api/article/c
+      url: '/api/articles/',
+      params: { articleID : '', userID : '' }
     })
+    .success(function (data, status, headers, config) { 
 
-  });*/
+    })
+    .error(function (data, status, headers, config) { 
+
+    });
+  }).
+  controller('commentCtrl', function ($scope, $http) {
+    $http({
+      method : 'POST',
+      url: '/api/articles/',
+      params: { convoID: '', userID : '' }
+    })
+    .success(function (data, status, headers, config) { 
+
+    })
+    .error(function (data, status, headers, config) { 
+
+    });
+  });

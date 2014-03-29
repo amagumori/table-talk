@@ -1,7 +1,8 @@
 var api = require('./api')
   , index = require('./index')
+  , auth = require('./auth')
 
-var routes = function(app) {
+var routes = function(app, jwt) {
 
   app.get('/index', index.index2);
 
@@ -17,6 +18,8 @@ var routes = function(app) {
 
   app.put('/api/articles/:id/conversations/:id', api.editComment);
   app.del('/api/articles/:id/conversations/:id', api.deleteComment);
+
+  app.post('/auth', auth.auth);
 
 }
 

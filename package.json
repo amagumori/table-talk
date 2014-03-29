@@ -9,6 +9,8 @@
     "mongoose": "~3.6.13",
     "underscore" : "~1.6.0",
     "xml2js" : "~0.4.1",
-    "unzip" : "~0.1.8"
+    "unzip" : "~0.1.8",
+    "express-jwt" : "latest",
+    "bcrypt" : "0.7.7"
   }
 }

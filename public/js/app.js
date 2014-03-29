@@ -10,20 +10,16 @@ angular.module('tableTalk', [
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/comment', {
-      templateUrl: 'partials/comment',
-      controller: 'commentCtrl'
+    when('/signup', {
+      templateUrl: 'partials/signup',
+      controller: 'signupCtrl'
     }).
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
-    }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
+    when('/login', {
+      templateUrl: 'partials/login',
+      controller: 'loginCtrl'
     }).
     otherwise({
-      redirectTo: '/comment'
+      redirectTo: '/'
     });
 
   $locationProvider.html5Mode(true);

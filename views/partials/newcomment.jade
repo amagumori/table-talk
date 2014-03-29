@@ -1,0 +1,6 @@
+form(ng-controller='convoCtrl', novalidate)
+  .user
+    .avatar(ng-src='$scope.me.avatar') //not how to do this correctly
+    .date(ng-model='comment.date') date.now() or whatever
+  textarea.commentbox(ng-model='comment.body')
+  button.submit(ng-click='postConvo()')

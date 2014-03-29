@@ -18,20 +18,38 @@ exports.listArticles = function(req, res) {
   })
 }
 
-exports.getArticle = function(req, res) { 
-  Article.load(req.params.article, function(err, article) { 
+/* POST /api/articles */
+
+exports.createArticle = function(req, res) {
+
+  var article = new Article(req.body);
+
+  Article.save(article, function(err, result, numAff) { 
     if (err) throw err
-    var resp = JSON.stringify(article)
-    res.json(resp)
+    if ( numAff == 1) {
+      res.end(200);
+    }
   })
 }
 
+/* GET /api/articles with query string ?id=IDGOESHERE */
+
+exports.getArticle = function(req, res) { 
+  Article.load(req.params.article, function(err, article) { 
+    if (err) throw err;
+    var resp = JSON.stringify(article);
+    res.json(resp);
+  })
+}
+
+/* DEL /api/articles with query string ?id=IDGOESHERE */
+
 exports.deleteArticle = function(req, res) { 
   Article.load(req.params.article, function(err, article) { 
-    if (err) throw err
+    if (err) throw err;
     Article.remove({ _id : article._id }, function(err) { 
-      if (err) throw err
-      res.end(200)
+      if (err) throw err;
+      res.end(200);
     })
   })
 }
@@ -44,7 +62,7 @@ exports.createConversation = function(req, res) {
   var conversation = JSON.parse(req.body)
   Conversation.save(conversation, function(err, convo, aff) { 
     if (err) throw err
-    if (aff === 1)  { res.json(convo) }
+    if (aff === 1)  { res.json(convo) }     // then add this to $scope.conversations in ctrllrs.js
   })
 }
 

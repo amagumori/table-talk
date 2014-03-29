@@ -1,0 +1,6 @@
+form.signup( name='signupform', ng-controller='signupCtrl')
+  input(type='text', class='username', ng-model='user.username') 
+  input(type='text', class='email', ng-model='user.email')
+  input(type='password', class='password', ng-model='user.password') 
+  button.cancel
+  button.submitSignup(ng-click='submit(user)')

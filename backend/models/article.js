@@ -17,7 +17,7 @@ ArticleSchema.statics = {
     this.findOne({ _id : id })
     .populate('conversations')
     .exec(cb)
-  }
+  },
   list: function(cb) { 
     this.find()
     .populate('conversations')

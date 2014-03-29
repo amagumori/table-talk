@@ -1,6 +1,4 @@
 var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
   http = require('http'),
   path = require('path')
 
@@ -16,6 +14,8 @@ app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
+require('./routes/routes')(app);
+
 app.use(express.cookieParser('this is supposed to be secret'))
 
 app.use(express.cookieSession({
@@ -24,10 +24,6 @@ app.use(express.cookieSession({
     maxAge: 14400000
   }
 }));
-
-// routes
-//
-require('./routes/routes')(app);
 
 // development only
 if (app.get('env') === 'development') {
@@ -42,7 +38,7 @@ if (app.get('env') === 'production') {
 /**
  * Routes
  */
-
+/*
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/index2', routes.index2);
@@ -56,6 +52,7 @@ app.get('/api/name', api.name);
 
 // test docx
 app.get('/docx', routes.docx);
+*/
 
 /**
  * Start Server

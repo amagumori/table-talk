@@ -37,7 +37,7 @@ angular.module('tableTalk.controllers', []).
     $http({
       method : 'GET',
       url: '/api/article',
-      params: '?id=''                                   // just hardcode default article ID here, fuck it
+      params: {id : 'AASDKJH12837192' }
     })
     .success(function (data, status, headers, config) { 
       $scope.conversations = data.conversations;
@@ -48,8 +48,43 @@ angular.module('tableTalk.controllers', []).
       $scope.conversations = 'Error!';
       $scope.article = 'Error!';
     });
+  }).
+  controller('signupCtrl', function($scope, $http) { 
 
-  })/*.
+    $scope.submit = function(user) { 
+      $scope.signupUser = angular.copy(user);
+    }
+
+    $http({
+      method: 'POST',
+      url: '/api/users/'
+    })
+    .success(function (data, status, headers, config) { 
+      // do angular login stuff here
+    })
+    .error(function (data, status, headers, config) { 
+ 
+    }); 
+  }).
+  controller('loginCtrl', function($scope, $http) { 
+
+    $scope.login = function(user) { 
+      $scope.loginUser = angular.copy(user);
+    }
+    // how do we auth users?
+    $http({
+      method: 'POST',
+      url: '/api/users/'
+    })
+    .success(function (data, status, headers, config) { 
+      // do angular login stuff here
+    })
+    .error(function (data, status, headers, config) { 
+ 
+    }); 
+  
+
+  /*.
   controller('postCommentCtrl', function ($scope, $http) {
     
     $http({
@@ -57,4 +92,4 @@ angular.module('tableTalk.controllers', []).
       url: '/api/article/c
     })
 
-  });*/.
+  });*/

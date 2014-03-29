@@ -1,0 +1,6 @@
+form.login( name='loginform', ng-controller='loginCtrl')
+  input(type='text', class='username', ng-model='user.username') 
+  input(type='text', class='email', ng-model='user.email')
+  input(type='password', class='password', ng-model='user.password') 
+  button.cancel
+  button.submitSignup(ng-click='login(user)')

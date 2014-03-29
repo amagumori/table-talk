@@ -19,16 +19,42 @@ angular.module('tableTalk.controllers', []).
     error(function (data, status, headers, config) {
       $scope.name = 'Error!';
     });
-
   }).
-  controller('MyCtrl1', function ($scope) {
-    // write Ctrl here
-
+  controller('listArticlesCtrl', function($scope, $http) { 
+    $http({
+      method : 'GET',
+      url : '/api/articles/list'
+    }).
+    success(function (data, status, headers, config) { 
+      $scope.articles = data.articles;
+    }).
+    error(function (data, status, headers, config) { 
+      $scope.articles = 'Error!';
+    });
   }).
-  controller('MyCtrl2', function ($scope) {
-    // write Ctrl here
+  controller('getArticleCtrl', function ($scope, $http) {
 
-  }).
-  controller('commentCtrl', function($scope, $http) {
+    $http({
+      method : 'GET',
+      url: '/api/article',
+      params: '?id=''                                   // just hardcode default article ID here, fuck it
+    })
+    .success(function (data, status, headers, config) { 
+      $scope.conversations = data.conversations;
+      $scope.comments = data.comments;
+      $scope.article = data.article;
+    })
+    .error(function (data, status, headers, config) { 
+      $scope.conversations = 'Error!';
+      $scope.article = 'Error!';
+    });
+
+  })/*.
+  controller('postCommentCtrl', function ($scope, $http) {
     
-  });
+    $http({
+      method : 'POST',
+      url: '/api/article/c
+    })
+
+  });*/.

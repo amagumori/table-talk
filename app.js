@@ -25,6 +25,10 @@ app.use(express.cookieSession({
   }
 }));
 
+// routes
+//
+require('./routes/routes')(app);
+
 // development only
 if (app.get('env') === 'development') {
   app.use(express.errorHandler());
@@ -34,7 +38,6 @@ if (app.get('env') === 'development') {
 if (app.get('env') === 'production') {
   // TODO
 }
-
 
 /**
  * Routes

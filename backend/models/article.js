@@ -18,6 +18,11 @@ ArticleSchema.statics = {
     .populate('conversations')
     .exec(cb)
   }
+  list: function(cb) { 
+    this.find()
+    .populate('conversations')
+    .exec(cb)
+  }
 }
 
 module.exports = mongoose.model('Article', ArticleSchema);

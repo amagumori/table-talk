@@ -12,15 +12,18 @@ config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/signup', {
       templateUrl: 'partials/signup',
-      controller: 'signupCtrl'
+      controller: 'signupCtrl', 
+      animate: 'slideFromRight'
     }).
     when('/login', {
       templateUrl: 'partials/login',
-      controller: 'loginCtrl'
+      controller: 'loginCtrl',
+      animate: 'slideFromRight'
     }).
     otherwise({
       redirectTo: '/'
     });
 
   $locationProvider.html5Mode(true);
+
 });

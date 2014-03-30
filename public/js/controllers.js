@@ -3,22 +3,11 @@
 /* Controllers */
 
 angular.module('tableTalk.controllers', []).
-  controller('AppCtrl', function ($scope, $http) {
-    $http({
-      method: 'GET',
-      url: '/'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.name = data.name;
-      $scope.comments = data.comments;
-      $scope.article = data.article;
-      $scope.set_pos = function(obj) { 
-        return { top : obj['offset'] }
-      }
-    }).
-    error(function (data, status, headers, config) {
-      $scope.name = 'Error!';
-    });
+  controller('viewCtrl', function ($scope) {
+    $scope.$on("$routeChangeSuccess", function(event) {
+
+
+    })
   }).
   controller('listArticlesCtrl', function($scope, $http) { 
     $http({
@@ -33,16 +22,20 @@ angular.module('tableTalk.controllers', []).
     });
   }).
   controller('getArticleCtrl', function ($scope, $http) {
-
     $http({
       method : 'GET',
       url: '/api/article',
       params: {id : 'AASDKJH12837192' }
     })
     .success(function (data, status, headers, config) { 
-      $scope.conversations = data.conversations;
-      $scope.comments = data.comments;
-      $scope.article = data.article;
+      /* logic to split document into pages
+      var pagesArr = []; 
+      var splitPages = function(data['file'], data['pages']) {
+        for (i=0; i<pages.length; i++) { 
+          arr.push(data['file'].substring(pages[i]['offset'], (pages[i]['offset'] + pages[i]['length'])));
+        }
+      })
+      $scope.articlePages = pagesArr;  */
     })
     .error(function (data, status, headers, config) { 
       $scope.conversations = 'Error!';

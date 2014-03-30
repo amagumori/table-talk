@@ -9,6 +9,7 @@ angular.module('tableTalk.directives', []).
     };
   }).
   /* http://stackoverflow.com/questions/21211460/route-dependent-css-page-transitions-in-angularjs */
+  /* maybe will use this, maybe will use the $rootScope.go() */
   directive('animClass', function($route) { 
     return {
       link : function(scope, elem, attrs) { 
@@ -18,6 +19,6 @@ angular.module('tableTalk.directives', []).
           elem.removeClass(enterClass);
           elem.addClass($route.current.animate);
         })
-      })
+      }
     }
   });

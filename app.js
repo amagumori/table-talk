@@ -36,7 +36,7 @@ if (app.get('env') === 'production') {
   // TODO
 }
 
-app.use('/api', jwt({ secret : secret }));
+app.use('/api', jwt({ secret : 'secret' }));
 app.use(express.json());
 app.use(express.urlencoded());
 

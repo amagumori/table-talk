@@ -13,17 +13,30 @@ config(function ($routeProvider, $locationProvider) {
     when('/signup', {
       templateUrl: 'partials/signup',
       controller: 'signupCtrl', 
-      animate: 'slideFromRight'
     }).
     when('/login', {
       templateUrl: 'partials/login',
       controller: 'loginCtrl',
-      animate: 'slideFromRight'
     }).
     otherwise({
       redirectTo: '/'
     });
 
   $locationProvider.html5Mode(true);
+
+  $rootScope.go = function(path, pageAnimationClass) { 
+    if (typeof(pageAnimationClass) === 'undefined') { 
+      $rootScope.pageAnimationClass = 'crossFade';
+    }
+    else { 
+      $rootScope.pageAnimationClass = pageAnimationClass;
+    }
+    if (path === 'back') {
+      $window.history.back();
+    }
+    else {
+      $location.path(path);
+    }
+  };
 
 });

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , _ = require('underscore')
-  , bcrypt = require('bcrypt')
 
 var UserSchema = new Schema({
   name: { type: String },
@@ -31,12 +30,10 @@ UserSchema.methods = {
     return this.encryptPassword(plaintext) === this.pw;
   },
 
-  encryptPassword: function(password) { 
+  encryptPassword: function(password, salt) { 
     var iter = 10000;
     var keylen = 128;
 
-
-    var salt = crypto.randomBytes('128');
     crypto.pbkdf2(user.pw, salt, iter, keylen, function(err, derivedKey) {
       if (err) return next(err);
       user.salt = salt.toString('base64');
@@ -58,7 +55,6 @@ UserSchema.statics = {
   list: function(ids, cb) { 
     
   }
-
 }
 
 module.exports = mongoose.model('User', UserSchema);

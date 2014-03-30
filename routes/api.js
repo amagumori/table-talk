@@ -3,6 +3,7 @@ var Article = require('../backend/models/article')
   , Conversation = require('../backend/models/conversation')
   , Comment = require('../backend/models/comment')
   , docx = require('../backend/controllers/docx')
+  , jwt = require('express-jwt')
 
 /*
  * Serve JSON to our AngularJS client

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , _ = require('underscore')
+  , crypto = require('crypto')
 
 var UserSchema = new Schema({
   name: { type: String },
@@ -13,6 +14,17 @@ var UserSchema = new Schema({
   conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation' }],
   peers: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
+
+// virtual 
+
+UserSchema.virtual('password')
+  .set(function(password) { 
+    this._password = password
+    this.salt = crypto.randomBytes(128)
+    this.encryptPassword(password)
+  })
+  .get(function() { return this._password })
+
 
 var validatePresenceOf = function (value) {   
   return value && value.length
@@ -30,15 +42,16 @@ UserSchema.methods = {
     return this.encryptPassword(plaintext) === this.pw;
   },
 
-  encryptPassword: function(password, salt) { 
+  encryptPassword: function(password) { 
+    // if the hash function fails p. sure you have no pw security at all.
+    // extremely insecure for now
     var iter = 10000;
     var keylen = 128;
+    if (!password) return ''
 
-    crypto.pbkdf2(user.pw, salt, iter, keylen, function(err, derivedKey) {
-      if (err) return next(err);
-      user.salt = salt.toString('base64');
-      user.pw = new Buffer(derivedKey, 'binary').toString('base64'); 
-      next();
+    crypto.pbkdf2(this.pw, this.salt, iter, keylen, function(err, derivedKey) {
+      if (err) return ''
+      this.pw = new Buffer(derivedKey, 'binary').toString('base64'); 
     }); 
   }
 }
@@ -53,7 +66,8 @@ UserSchema.statics = {
     .exec(cb)
   },
   list: function(ids, cb) { 
-    
+    this.find()
+    .exec(cb)    
   }
 }
 

@@ -9,6 +9,22 @@ angular.module('tableTalk.controllers', []).
 
     })
   }).
+
+  controller('postArticleCtrl', function($scope, $http) { 
+    $http({
+      method : 'POST',
+      url : '/api/articles'
+      //params: { }
+    }).
+    success(function (data, status, headers, config) { 
+      
+      $scope.articles = data.articles;
+    }).
+    error(function (data, status, headers, config) { 
+      $scope.articles = 'Error!';
+    });
+  }).
+
   controller('listArticlesCtrl', function($scope, $http) { 
     $http({
       method : 'GET',
@@ -21,6 +37,7 @@ angular.module('tableTalk.controllers', []).
       $scope.articles = 'Error!';
     });
   }).
+
   controller('getArticleCtrl', function ($scope, $http) {
     $http({
       method : 'GET',
@@ -42,6 +59,7 @@ angular.module('tableTalk.controllers', []).
       $scope.article = 'Error!';
     });
   }).
+
   controller('signupCtrl', function($scope, $http) { 
 
     $scope.submit = function(user) { 
@@ -59,6 +77,7 @@ angular.module('tableTalk.controllers', []).
  
     }); 
   }).
+
   controller('loginCtrl', function($scope, $http) { 
 
     $scope.login = function(user) { 
@@ -76,19 +95,33 @@ angular.module('tableTalk.controllers', []).
  
     }); 
   }).
-  controller('convoCtrl', function ($scope, $http) {
+
+  controller('indexCtrl', function ($scope, $http) {
     
     $http({
-      method : 'POST',
-      url: '/api/articles/',
-      params: { articleID : '', userID : '' }
+      method: 'GET',
+      url: '/api/comments/'
     })
     .success(function (data, status, headers, config) { 
-
+      $scope.comments = data; // return JSON list of comment objects
     })
     .error(function (data, status, headers, config) { 
+ 
+    }); 
 
-    });
+    $scope.processForm = function() {    
+      $http({
+        method : 'POST',
+        url: '/api/conversations',
+        data: $scope.newcomment
+      })
+      .success(function (data, status, headers, config) { 
+        console.log('successfully posted!!!!')
+      })
+      .error(function (data, status, headers, config) { 
+
+      });
+    };
   }).
   controller('commentCtrl', function ($scope, $http) {
     $http({

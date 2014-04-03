@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
   , crypto = require('crypto');
 
 var ArticleSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String }, //Schema.Types.ObjectId, ref: 'User' },
   file: { type: String, default: '' },
   page: [{
     offset: { type: Number },
@@ -25,4 +25,4 @@ ArticleSchema.statics = {
   }
 }
 
-module.exports = mongoose.model('Article', ArticleSchema);
+mongoose.model('Article', ArticleSchema);

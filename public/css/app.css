@@ -268,3 +268,37 @@ body {
   display: none;
   position: absolute;
 }
+
+.postArticleTitle {
+  font-weight: 900;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.postArticle {
+  background: #4d4d4d;
+  border: none;
+  width: 400px;
+  height: 600px;
+  margin-top: 8px;
+  float: none;
+  border-radius: 3px;
+}
+
+.submit {
+  border: none;
+  border-radius: 3px;
+  background: #cece61;
+  color: white;
+  float: none;
+  width: 300px;
+  text-align: center;
+  height: 28px;
+  margin-top: 8px;
+}
+
+.submit:hover {
+  background: #eeee72;
+}
+
+

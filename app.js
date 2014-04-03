@@ -1,9 +1,18 @@
 var express = require('express'),
   http = require('http'),
   path = require('path'),
-  jwt = require('express-jwt')
+  jwt = require('express-jwt'),
+  fs = require('fs'),
+  mongoose = require('mongoose')
 
 var app = module.exports = express();
+
+mongoose.connect('mongodb://localhost/test')
+
+var models_path = __dirname + '/backend/models'
+  fs.readdirSync(models_path).forEach(function (file) {
+  if (~file.indexOf('.js')) require (models_path + '/' + file)
+})
 
 // all environments
 app.set('port', process.env.PORT || 3000);

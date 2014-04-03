@@ -1,8 +1,8 @@
-var Article = require('../backend/models/article')
-  , User = require('../backend/models/user')
-  , Conversation = require('../backend/models/conversation')
-  , Comment = require('../backend/models/comment')
-  , docx = require('../backend/controllers/docx')
+var mongoose = require('mongoose')
+  , Article = mongoose.model('Article')
+  , User = mongoose.model('User')
+  , Conversation = mongoose.model('User')
+  , Comment = mongoose.model('Comment')
   , jwt = require('express-jwt')
 
 /*
@@ -60,10 +60,14 @@ exports.deleteArticle = function(req, res) {
  * POST /api/articles/:id/ */
 
 exports.createConversation = function(req, res) { 
-  var conversation = JSON.parse(req.body)
-  Conversation.save(conversation, function(err, convo, aff) { 
+  console.log(JSON.stringify(req.body, undefined, 2))
+  var convo = new Comment({
+    author: req.body.author,
+    body: req.body.body
+  })
+  convo.save(function(err, product, numAff) {
     if (err) throw err
-    if (aff === 1)  { res.json(convo) }     // then add this to $scope.conversations in ctrllrs.js
+    if (!err)  { res.end(200) }     // then add this to $scope.conversations in ctrllrs.js
   })
 }
 
@@ -85,6 +89,13 @@ exports.editComment = function(req, res) {
   Comment.save(comment, function(err, comment, aff) { 
     if (err) throw err
     if (aff === 1) { res.json(comment) }
+  })
+}
+
+exports.listComments = function(req, res) { 
+  Comment.list(function(err, comments) {
+    console.log(JSON.stringify(comments))
+    res.json(comments)
   })
 }
 

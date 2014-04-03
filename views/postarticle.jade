@@ -1,6 +1,8 @@
 extends layouts/layout
 
 block content
-  .col-12
-    textarea.postArticle
-    button.submit
+  .row(ng-controller='')
+    p.postArticleTitle.center-block POST AN ARTICLE
+    textarea.postArticle.center-block(ng-model='')
+    button.submit.center-block(ng-click='')
+      i.fa.fa-plus-circle

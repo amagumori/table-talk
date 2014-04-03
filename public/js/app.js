@@ -18,12 +18,15 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/login',
       controller: 'loginCtrl',
     }).
+    when('/', {
+      controller: 'indexCtrl'
+    }).
     otherwise({
       redirectTo: '/'
     });
-
+});
+/*
   $locationProvider.html5Mode(true);
-
   $rootScope.go = function(path, pageAnimationClass) { 
     if (typeof(pageAnimationClass) === 'undefined') { 
       $rootScope.pageAnimationClass = 'crossFade';
@@ -38,5 +41,4 @@ config(function ($routeProvider, $locationProvider) {
       $location.path(path);
     }
   };
-
-});
+*/

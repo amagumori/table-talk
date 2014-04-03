@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
   , _ = require('underscore')
 
 var ConversationSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String },  //Schema.Types.ObjectId, ref: 'User' },
   selection: {
     rectCoords : [{ type: Number }],
     range: [{ type: Number }]
@@ -34,4 +34,4 @@ ConversationSchema.statics = {
   }
 }
 
-module.exports = mongoose.model('Conversation', ConversationSchema);
+mongoose.model('Conversation', ConversationSchema);

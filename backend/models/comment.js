@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
   _ = require('underscore');
 
 var CommentSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String }, //Schema.Types.ObjectId, ref: 'User' },
   timestamp: { type: Date, default: Date.now },
   parentComment: { type: Schema.Types.ObjectId, ref: 'Comment' }, 
   body: { type: String, default: '' }
@@ -14,7 +14,11 @@ CommentSchema.statics = {
     this.findOne({_id : id})
     .populate('author', { select : 'name av' })
     .exec(cb)
+  },
+  list: function(cb) { 
+    this.find()
+    .exec(cb)
   }
 }
 
-module.exports = mongoose.model('Comment', CommentSchema);
+mongoose.model('Comment', CommentSchema);

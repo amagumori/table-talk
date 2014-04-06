@@ -59,4 +59,8 @@ $(document).ready(function() {
   }).blur(function() { 
     $(".articlebody").selectRange(savedSel);  
   });
+
+  $(".commentbox").autosize();
+
+  $(".commentbox").addClass('animated')
 })

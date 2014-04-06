@@ -6,7 +6,9 @@ var CommentSchema = new Schema({
   author: { type: String }, //Schema.Types.ObjectId, ref: 'User' },
   timestamp: { type: Date, default: Date.now },
   parentComment: { type: Schema.Types.ObjectId, ref: 'Comment' }, 
-  body: { type: String, default: '' }
+  body: { type: String, default: '' },
+  offsetTop: { type : Number },
+  selection: { type: String }
 });
 
 CommentSchema.statics = {

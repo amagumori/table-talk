@@ -99,7 +99,9 @@ angular.module('tableTalk.controllers', []).
   controller('indexCtrl', function ($scope, $http, $q, $rootScope) {
 
     var deferred = $q.defer();
-    
+   
+    $scope.convosOn = null;
+ 
     $http({
       method: 'GET',
       url: '/api/comments/'
@@ -116,6 +118,11 @@ angular.module('tableTalk.controllers', []).
     }); 
 
     $scope.processForm = function() {    
+
+      // requires selection to be active when form is posted!
+      var sel = $window.getSelection();
+      $scope.newcomment.push(sel);
+
       $http({
         method : 'POST',
         url: '/api/conversations',
@@ -133,6 +140,7 @@ angular.module('tableTalk.controllers', []).
 
       });
     };
+
   }).
   controller('commentCtrl', function ($scope, $http) {
     $http({

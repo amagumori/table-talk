@@ -61,9 +61,11 @@ exports.deleteArticle = function(req, res) {
 
 exports.createConversation = function(req, res) { 
   console.log(JSON.stringify(req.body, undefined, 2))
+  var selectionJSON = JSON.stringify(req.body.selection)
   var convo = new Comment({
     author: req.body.author,
-    body: req.body.body
+    body: req.body.body,
+    selection: selectionJSON
   })
   convo.save(convo, function(err, product, numAff) {
     if (err) throw err

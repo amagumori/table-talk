@@ -16,6 +16,8 @@ var routes = function(app, jwt) {
   app.put('/api/articles/:id/conversations/:id', api.editComment);
   app.del('/api/articles/:id/conversations/:id', api.deleteComment);
 
+  app.get('/api/comments', api.listComments)
+
   //app.post('/auth', auth.auth);
 
   app.get('/partials/:name', index.partials)

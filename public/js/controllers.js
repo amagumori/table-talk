@@ -96,14 +96,20 @@ angular.module('tableTalk.controllers', []).
     }); 
   }).
 
-  controller('indexCtrl', function ($scope, $http) {
+  controller('indexCtrl', function ($scope, $http, $q, $rootScope) {
+
+    var deferred = $q.defer();
     
     $http({
       method: 'GET',
       url: '/api/comments/'
     })
     .success(function (data, status, headers, config) { 
-      $scope.comments = data; // return JSON list of comment objects
+      var theData = data;
+      $scope.comments = theData; // return JSON list of comment objects
+      deferred.resolve(theData);
+      // update scopes
+      $rootScope.$$phase || $rootScope.$apply() || $scope.apply();
     })
     .error(function (data, status, headers, config) { 
  
@@ -116,7 +122,12 @@ angular.module('tableTalk.controllers', []).
         data: $scope.newcomment
       })
       .success(function (data, status, headers, config) { 
-        console.log('successfully posted!!!!')
+        var comment = data;
+        // hopefully will update scopes?
+        $scope.comments.push(comment);
+        $scope.$apply();
+        console.log('successfully posted!!!!' + comment)
+        console.log('comments: \n\n' + $scope.comments)
       })
       .error(function (data, status, headers, config) { 
 

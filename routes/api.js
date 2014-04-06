@@ -65,9 +65,9 @@ exports.createConversation = function(req, res) {
     author: req.body.author,
     body: req.body.body
   })
-  convo.save(function(err, product, numAff) {
+  convo.save(convo, function(err, product, numAff) {
     if (err) throw err
-    if (!err)  { res.end(200) }     // then add this to $scope.conversations in ctrllrs.js
+    res.end(200)     // then add this to $scope.conversations in ctrllrs.js
   })
 }
 
@@ -94,7 +94,7 @@ exports.editComment = function(req, res) {
 
 exports.listComments = function(req, res) { 
   Comment.list(function(err, comments) {
-    console.log(JSON.stringify(comments))
+    //console.log(JSON.stringify(comments))
     res.json(comments)
   })
 }

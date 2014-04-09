@@ -47,7 +47,6 @@ body {
 
 .conversations {
   overflow: hidden;
-  border-right: 2px solid #faa21b;
 }
 
 .article {
@@ -96,9 +95,8 @@ body {
   }
 
 .user {
-  
   display: inline-block;
-  margin: 8px 4px 8px 0;
+  margin: 6px 4px 6px 0;
   text-align: center;
   float: left;
   width: 40px;

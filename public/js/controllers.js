@@ -2,15 +2,25 @@
 
 /* Controllers */
 
-angular.module('tableTalk.controllers', []).
-  controller('viewCtrl', function ($scope) {
+var appControllers = angular.module('tableTalk.controllers', [])
+
+appControllers.factory('getService', function($q) {
+  return {
+    getComments: function () { 
+      var deferred = $q.defer();
+      
+      
+    }
+})
+
+appControllers.controller('viewCtrl', function ($scope) {
     $scope.$on("$routeChangeSuccess", function(event) {
 
 
     })
-  }).
+})
 
-  controller('postArticleCtrl', function($scope, $http) { 
+appControllers.controller('postArticleCtrl', function($scope, $http) { 
     $http({
       method : 'POST',
       url : '/api/articles'
@@ -23,9 +33,9 @@ angular.module('tableTalk.controllers', []).
     error(function (data, status, headers, config) { 
       $scope.articles = 'Error!';
     });
-  }).
+})
 
-  controller('listArticlesCtrl', function($scope, $http) { 
+appControllers.controller('listArticlesCtrl', function($scope, $http) { 
     $http({
       method : 'GET',
       url : '/api/articles/list'
@@ -36,9 +46,9 @@ angular.module('tableTalk.controllers', []).
     error(function (data, status, headers, config) { 
       $scope.articles = 'Error!';
     });
-  }).
+})
 
-  controller('getArticleCtrl', function ($scope, $http) {
+appControllers.controller('getArticleCtrl', function ($scope, $http) {
     $http({
       method : 'GET',
       url: '/api/article',
@@ -58,9 +68,9 @@ angular.module('tableTalk.controllers', []).
       $scope.conversations = 'Error!';
       $scope.article = 'Error!';
     });
-  }).
+})
 
-  controller('signupCtrl', function($scope, $http) { 
+appControllers.controller('signupCtrl', function($scope, $http) { 
 
     $scope.submit = function(user) { 
       $scope.signupUser = angular.copy(user);
@@ -76,9 +86,9 @@ angular.module('tableTalk.controllers', []).
     .error(function (data, status, headers, config) { 
  
     }); 
-  }).
+})
 
-  controller('loginCtrl', function($scope, $http) { 
+appControllers.controller('loginCtrl', function($scope, $http) { 
 
     $scope.login = function(user) { 
       $scope.loginUser = angular.copy(user);
@@ -94,34 +104,59 @@ angular.module('tableTalk.controllers', []).
     .error(function (data, status, headers, config) { 
  
     }); 
-  }).
+})
 
-  controller('indexCtrl', function ($scope, $http, $q, $rootScope) {
-
-    var deferred = $q.defer();
-   
+appControllers.controller('indexCtrl', [ 'getService', '$scope', '$http', '$q', '$window', '$document', function (getService, $scope, $http, $q, $window, $document )  {
+  
+    // toggle convos 
     $scope.convosOn = null;
+    // holds serialized selection later
+    $scope.selection = null
+    // GET service handling all GET reqs
+    $scope.getService = getService;
+    $scope.getService.getItems();
  
-    $http({
-      method: 'GET',
-      url: '/api/comments/'
-    })
-    .success(function (data, status, headers, config) { 
-      var theData = data;
-      $scope.comments = theData; // return JSON list of comment objects
-      deferred.resolve(theData);
-      // update scopes
-      $rootScope.$$phase || $rootScope.$apply() || $scope.apply();
-    })
-    .error(function (data, status, headers, config) { 
- 
-    }); 
+    $scope.on('getService.update', function(ev, comments) { 
+      $scope.comments = comments
+    });
+
+    // initialize rangy highlighter here
+
+    var highlighter = rangy.createHighlighter($document, 'textContent');
+    var cssApplier = rangy.createCssClassApplier('highlightclass', { normalize : true });
+
+    // call this like: showHighlight(comment[$index])
+
+    $scope.showHighlight = function(comment) { 
+      var serializedSel = comment['selection'] 
+      var range = rangy.deserializeSelection(serializedSel, undefined, $document);
+      cssApplier.toggleRange(range);  //might have to call this twice?  so dum
+    };
+
+    // needs to execute before POST request obv
+
+    $scope.highlightAndSerialize = function() {
+      var sel = $window.getSelection();
+      var serializedSel = rangy.serializeSelection(sel, true);
+      if ($scope.newcomment) { 
+        $scope.newcomment.forEach(function(e) { 
+          e['selection'] = serializedSel;
+        })            
+      }
+    };
 
     $scope.processForm = function() {    
 
       // requires selection to be active when form is posted!
-      var sel = $window.getSelection();
-      $scope.newcomment.push(sel);
+      var sel = $window.getSelection().getRangeAt(0);
+      var selection = {};
+
+      selection['startContainer'] = sel['startContainer'];
+      selection['endContainer'] = sel['endContainer'];
+      selection['endOffset'] = sel['endOffset'];
+      selection['startOffset'] = sel['startOffset'];
+      console.dir(selection)
+
 
       $http({
         method : 'POST',
@@ -141,8 +176,9 @@ angular.module('tableTalk.controllers', []).
       });
     };
 
-  }).
-  controller('commentCtrl', function ($scope, $http) {
+}]);
+
+appControllers.controller('commentCtrl', function ($scope, $http) {
     $http({
       method : 'POST',
       url: '/api/articles/',
@@ -154,4 +190,4 @@ angular.module('tableTalk.controllers', []).
     .error(function (data, status, headers, config) { 
 
     });
-  });
+});

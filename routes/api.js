@@ -96,7 +96,7 @@ exports.editComment = function(req, res) {
 
 exports.listComments = function(req, res) { 
   Comment.list(function(err, comments) {
-    //console.log(JSON.stringify(comments))
+    console.log(JSON.stringify(comments))
     res.json(comments)
   })
 }

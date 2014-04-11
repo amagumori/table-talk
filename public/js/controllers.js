@@ -4,14 +4,62 @@
 
 var appControllers = angular.module('tableTalk.controllers', [])
 
-appControllers.factory('getService', function($q) {
+/* HTTP REST SERVICES */
+
+appControllers.factory('getService', ['$http', function($http) {
+
   return {
     getComments: function () { 
-      var deferred = $q.defer();
-      
-      
+      return $http.get('/api/comments')
     }
-})
+  }
+
+}])
+
+
+appControllers.factory('postService', ['$http', function($http) {
+
+  return {
+    postComment: function (comment) { 
+      $http({
+        method : 'POST',
+        url: '/api/conversations',
+        data: comment
+      })
+      .success(function (data, status, headers, config) { 
+        return data;
+      })
+      .error(function (data, status, headers, config) { 
+        return status + headers;
+      });
+    },
+    login: function() { 
+      $http({
+        method: 'POST',
+        url: '/api/auth'
+      })
+      .success(function (data, status, headers, config) { 
+        // do angular login stuff here
+      })
+      .error(function (data, status, headers, config) { 
+   
+      }); 
+    }
+    signup: function() { 
+      $http({
+        method: 'POST',
+        url: '/api/users'
+      })
+      .success(function (data, status, headers, config) { 
+        // do angular login stuff here
+      })
+      .error(function (data, status, headers, config) { 
+   
+      }); 
+    }
+  }
+
+}])
 
 appControllers.controller('viewCtrl', function ($scope) {
     $scope.$on("$routeChangeSuccess", function(event) {
@@ -88,94 +136,24 @@ appControllers.controller('signupCtrl', function($scope, $http) {
     }); 
 })
 
-appControllers.controller('loginCtrl', function($scope, $http) { 
-
-    $scope.login = function(user) { 
-      $scope.loginUser = angular.copy(user);
-    }
-    // how do we auth users?
-    $http({
-      method: 'POST',
-      url: '/api/users/'
-    })
-    .success(function (data, status, headers, config) { 
-      // do angular login stuff here
-    })
-    .error(function (data, status, headers, config) { 
- 
-    }); 
+appControllers.controller('loginCtrl', ['$scope', '$http', 'postService', function($scope, $http, postService) { 
+  postService.login();
 })
 
-appControllers.controller('indexCtrl', [ 'getService', '$scope', '$http', '$q', '$window', '$document', function (getService, $scope, $http, $q, $window, $document )  {
+appControllers.controller('indexCtrl', ['$scope', '$http', 'getService', function ($scope, $http, getService )  {
   
-    // toggle convos 
+    // toggle convos - use ng-show instead?
     $scope.convosOn = null;
-    // holds serialized selection later
-    $scope.selection = null
-    // GET service handling all GET reqs
-    $scope.getService = getService;
-    $scope.getService.getItems();
- 
-    $scope.on('getService.update', function(ev, comments) { 
-      $scope.comments = comments
-    });
 
     // initialize rangy highlighter here
 
-    var highlighter = rangy.createHighlighter($document, 'textContent');
-    var cssApplier = rangy.createCssClassApplier('highlightclass', { normalize : true });
-
-    // call this like: showHighlight(comment[$index])
-
-    $scope.showHighlight = function(comment) { 
-      var serializedSel = comment['selection'] 
-      var range = rangy.deserializeSelection(serializedSel, undefined, $document);
-      cssApplier.toggleRange(range);  //might have to call this twice?  so dum
-    };
-
-    // needs to execute before POST request obv
-
-    $scope.highlightAndSerialize = function() {
-      var sel = $window.getSelection();
-      var serializedSel = rangy.serializeSelection(sel, true);
-      if ($scope.newcomment) { 
-        $scope.newcomment.forEach(function(e) { 
-          e['selection'] = serializedSel;
-        })            
-      }
-    };
-
     $scope.processForm = function() {    
 
-      // requires selection to be active when form is posted!
-      var sel = $window.getSelection().getRangeAt(0);
-      var selection = {};
+      var serializedSel = null; // will need to get this from selections.js
+                                // push it into angular scope from jquery on selection mouseup event
+      $scope.newcomment['selection'] = serializedSel;
 
-      selection['startContainer'] = sel['startContainer'];
-      selection['endContainer'] = sel['endContainer'];
-      selection['endOffset'] = sel['endOffset'];
-      selection['startOffset'] = sel['startOffset'];
-      console.dir(selection)
-
-
-      $http({
-        method : 'POST',
-        url: '/api/conversations',
-        data: $scope.newcomment
-      })
-      .success(function (data, status, headers, config) { 
-        var comment = data;
-        // hopefully will update scopes?
-        $scope.comments.push(comment);
-        $scope.$apply();
-        console.log('successfully posted!!!!' + comment)
-        console.log('comments: \n\n' + $scope.comments)
-      })
-      .error(function (data, status, headers, config) { 
-
-      });
     };
-
 }]);
 
 appControllers.controller('commentCtrl', function ($scope, $http) {

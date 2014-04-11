@@ -1,6 +1,11 @@
 extends layouts/layout
 
 block content
+  script(src='/js/lib/rangy-core.js')
+  script(src='/js/lib/rangy-highlighter.js')
+  script(src='/js/lib/rangy-cssclassapplier.js')
+  script(src='/js/lib/rangy-serializer.js')
+  script(src='/js/lib/rangy-textrange.js')
   script(src='/js/lib/jquery.min.js')
   script(src='/js/lib/jQuery.highlighter.js')
   script(src='/js/lib/jquery.autosize.js')
@@ -10,7 +15,7 @@ block content
       img#logo(ng-src='/img/tt-new.png')
   .row.content(ng-controller='indexCtrl')
     .col-lg-3.conversations
-      .comment(ng-repeat='comment in comments', ng-show="convosOn", ng-animate="{show: 'animate-show', hide: 'animate-hide' }") 
+      .comment(ng-click='showHighlight()', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="{show: 'animate-show', hide: 'animate-hide' }") 
         .user
           .avatar
           .date {{comment.timestamp | date : 'MMM dd'}}
@@ -35,4 +40,4 @@ block content
         textarea.commentbox(ng-model="newcomment.body")
         input.userinput(ng-model="newcomment.author", placeholder='name here')
         button.submit(type='submit')
-          i.fa.fa-plus-circle   //ng-click = submit comment function
+          i.fa.fa-plus-circle

@@ -69,10 +69,9 @@ exports.createConversation = function(req, res) {
   })
   convo.save(convo, function(err, product, numAff) {
     if (err) throw err
-    res.end(200)     // then add this to $scope.conversations in ctrllrs.js
+    res.end(200)
   })
 }
-
 /* COMMENT CONTROLLERS 
  * POST api/articles/:id/page/:id (?) */
 
@@ -98,6 +97,7 @@ exports.listComments = function(req, res) {
   Comment.list(function(err, comments) {
     console.log(JSON.stringify(comments))
     res.json(comments)
+    res.end(200);
   })
 }
 

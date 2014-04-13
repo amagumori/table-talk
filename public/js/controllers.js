@@ -20,9 +20,10 @@ appControllers.factory("httpService", ['$http', '$log', function($http, $log) {
       })
     },
     postComment: function (comment) { 
+
       $http({
         method : 'POST',
-        url: '/api/conversations',
+        url: '/api/comments',
         data: comment
       })
       .success(function (data, status, headers, config) { 
@@ -57,51 +58,6 @@ appControllers.factory("httpService", ['$http', '$log', function($http, $log) {
       }); 
     }
  
-  }
-
-}])
-
-
-angular.module("appControllers.postService", []).factory('postService', ['$http', function($http) {
-
-  return {
-    postComment: function (comment) { 
-      $http({
-        method : 'POST',
-        url: '/api/conversations',
-        data: comment
-      })
-      .success(function (data, status, headers, config) { 
-        return data;
-      })
-      .error(function (data, status, headers, config) { 
-        return status + headers;
-      });
-    },
-    login: function() { 
-      $http({
-        method: 'POST',
-        url: '/api/auth'
-      })
-      .success(function (data, status, headers, config) { 
-        // do angular login stuff here
-      })
-      .error(function (data, status, headers, config) { 
-   
-      }); 
-    },
-    signup: function() { 
-      $http({
-        method: 'POST',
-        url: '/api/users'
-      })
-      .success(function (data, status, headers, config) { 
-        // do angular login stuff here
-      })
-      .error(function (data, status, headers, config) { 
-   
-      }); 
-    }
   }
 
 }])
@@ -195,7 +151,9 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
     httpService.get();
 
     $scope.processForm = function() {    
-      httpService.postComment();
+      console.log('processForm hit.')
+      var comment = $scope.newcomment;
+      httpService.postComment(comment);
     };
 }]);
 

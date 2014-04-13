@@ -10,7 +10,7 @@ var routes = function(app, jwt) {
   app.get('/api/articles/list', api.listArticles);      // controller not implemented yet
   app.del('/api/articles/:id', api.deleteArticle);
 
-  app.post('/api/conversations', api.createConversation);
+  app.post('/api/comments', api.createComment);
 
   app.post('/api/articles/:id/conversations/:id', api.createComment);
   app.put('/api/articles/:id/conversations/:id', api.editComment);

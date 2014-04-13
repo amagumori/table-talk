@@ -47,7 +47,7 @@ exports.createComment = function(req, res) {
   var comment = JSON.parse(req.body)
   Comment.save(comment, function(err, comment, aff) { 
     if (err) throw err
-    if (aff === 1) { res.json(comment) }
+    res.json(comment)
   })
 }
 

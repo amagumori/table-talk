@@ -35,7 +35,7 @@ block content
       i.fa.fa-leaf
       i.fa.fa-plus-circle
     span.tip
-      form(ng-submit="processForm()")
+      form(ng-submit="processForm()", ng-model='newcomment')
         .avatar
         textarea.commentbox(ng-model="newcomment.body")
         input.userinput(ng-model="newcomment.author", placeholder='name here')

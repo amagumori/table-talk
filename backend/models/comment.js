@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-  , Schema = mongoose.Schema
+  , Schema = mongoose.Schema,
   _ = require('underscore');
 
 var CommentSchema = new Schema({
@@ -23,4 +23,4 @@ CommentSchema.statics = {
   }
 }
 
-mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);

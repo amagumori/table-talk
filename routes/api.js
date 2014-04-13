@@ -1,8 +1,7 @@
 var mongoose = require('mongoose')
-  , Article = mongoose.model('Article')
-  , User = mongoose.model('User')
-  , Conversation = mongoose.model('User')
-  , Comment = mongoose.model('Comment')
+  , fs = require('fs')
+  , path = require('path')
+  , Comment = require('../backend/models/')('comment')
   , jwt = require('express-jwt')
 
 /*
@@ -76,10 +75,14 @@ exports.createConversation = function(req, res) {
  * POST api/articles/:id/page/:id (?) */
 
 exports.createComment = function(req, res) { 
-  var comment = JSON.parse(req.body)
-  Comment.save(comment, function(err, comment, aff) { 
+  var comment = req.body
+
+  var newcomment = new Comment(req.body)
+
+  console.log('POST body' + JSON.stringify(req.body, undefined, 2))
+  newcomment.save(function(err) { 
     if (err) throw err
-    if (aff === 1) { res.json(comment) }
+    res.json(comment)
   })
 }
 

@@ -15,7 +15,7 @@ block content
       img#logo(ng-src='/img/tt-new.png')
   .row.content(ng-controller='indexCtrl')
     .col-lg-3.conversations
-      .comment(ng-click='showHighlight()', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="{show: 'animate-show', hide: 'animate-hide' }") 
+      .comment(ng-click='showHighlight(comment)', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="{show: 'animate-show', hide: 'animate-hide' }") 
         .user
           .avatar
           .date {{comment.timestamp | date : 'MMM dd'}}

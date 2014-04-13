@@ -1,6 +1,7 @@
 $(document).ready(function() { 
   $(".articlebody").highlighter({selector : '.tip' });
   var articleWidth = $('.articlebody').css('width');
+  var scope = angular.element(".row.content").scope();
   $('.tip').css('width', articleWidth);
 
   $(".commentbox").autosize();
@@ -18,9 +19,16 @@ $(document).ready(function() {
     var showHighlight = function(comment) { 
       var serializedSel = comment['selection'] 
       var range = rangy.deserializeSelection(serializedSel, undefined, document);
-      cssApplier.toggleRange(range);  //might have to call this twice?  so dum
     };
 
-  $(document
+  $(".articlebody").mouseup(function() { 
+    var sel = rangy.getSelection();
+    var rng = rangy.serializeSelection(sel, undefined, document);
+    //scope.newcomment['selection'] = rng
+  })
+
+  $(".comment").click(function() { 
+    var el = angular.element(this);
+  })
 
 })

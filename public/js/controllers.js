@@ -13,10 +13,6 @@ appControllers.factory("httpService", ['$http', '$log', function($http, $log) {
       return $http({
         method : 'GET',
         url : '/api/comments'
-      }).success(function(data, status, headers, config) { 
-
-      }).error(function(data, status, headers, config) { 
-
       })
     },
     postComment: function (comment) { 
@@ -25,13 +21,12 @@ appControllers.factory("httpService", ['$http', '$log', function($http, $log) {
         method : 'POST',
         url: '/api/comments',
         data: comment
+      }).success(function(data, status, headers, config) { 
+        console.log('RES STATUS: ' + status)
+      }).error(function(data, status, headers, config) { 
+
       })
-      .success(function (data, status, headers, config) { 
-        return data;
-      })
-      .error(function (data, status, headers, config) { 
-        return status + headers;
-      });
+
     },
     login: function() { 
       $http({
@@ -146,14 +141,19 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
     // toggle convos - use ng-show instead?
     $scope.convosOn = null;
 
-    // initialize rangy highlighter here
+    var getcomments = httpService.get();
 
-    httpService.get();
+    getcomments.success(function(data, status, headers, config) { 
+      $scope.comments = data;
+    }).error(function(data, status, headers, config) { 
+      console.log(data, status, headers, config)      
+    })
 
     $scope.processForm = function() {    
       console.log('processForm hit.')
       var comment = $scope.newcomment;
       httpService.postComment(comment);
+      $scope.comments.push(comment)
     };
 }]);
 

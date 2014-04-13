@@ -21,4 +21,14 @@ angular.module('tableTalk.directives', []).
         })
       }
     }
+  }).
+  directive('odometer', function() { 
+    return {
+      template: '<div class="odometer"></div>',
+      restrict: 'E',
+      replace: true,
+      link: function(scope, el, attrs) { 
+        new Odometer({el: el[0], value: scope.comments.length })
+      }
+    };
   });

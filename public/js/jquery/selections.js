@@ -7,12 +7,29 @@ $(document).ready(function() {
   $(".commentbox").autosize();
   $(".commentbox").addClass('animated')
 
+  // spin.js !
+  //
+  var opts = {
+    lines : 6,
+    length: 0,
+    width: 3,
+    radius : 4,
+    corners : 1.0,
+    rotate: 19,
+    trail: 66,
+    speed: 1.3,
+    direction: 'clockwise',
+    shadow: true
+  }
+  var loader = $(".loader")
+  var spinner = new Spinner(opts)
+
   // rangy stuff
 
-  var highlighter = rangy.createHighlighter(document, 'textContent');
+  var rangyHighlighter = rangy.createHighlighter(document, 'textContent');
   var cssApplier = rangy.createCssClassApplier('highlightclass', { normalize : true });
-  highlighter.addClassApplier(cssApplier);
-  highlighter.highlightSelection('highlightclass');
+  rangyHighlighter.addClassApplier(cssApplier);
+  rangyHighlighter.highlightSelection('highlightclass');
 
     // call this like: showHighlight(comment[$index])
 
@@ -24,11 +41,14 @@ $(document).ready(function() {
   $(".articlebody").mouseup(function() { 
     var sel = rangy.getSelection();
     var rng = rangy.serializeSelection(sel, undefined, document);
-    //scope.newcomment['selection'] = rng
+    console.log('SHUCH FENOMENAL RAINGE.  ' + rng);
   })
 
   $(".comment").click(function() { 
     var el = angular.element(this);
   })
 
+  $(".submit").click(function() { 
+    spinner.spin(loader)
+  })
 })

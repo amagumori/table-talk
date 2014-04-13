@@ -10,6 +10,9 @@ block content
   script(src='/js/lib/jQuery.highlighter.js')
   script(src='/js/lib/jquery.autosize.js')
   script(src='/js/jquery/selections.js')
+  script(src='/js/lib/spin.min.js')
+  script(src='/js/lib/odometer.min.js')
+  link(rel='stylesheet', href='/css/odometer-theme-minimal.css')
   .row.top
     a(href='/')
       img#logo(ng-src='/img/tt-new.png')
@@ -32,12 +35,10 @@ block content
       .articlebody Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum
     .col-lg-3.pages
     span.tip
-      i.fa.fa-leaf
-      i.fa.fa-plus-circle
-    span.tip
       form(ng-submit="processForm()", ng-model='newcomment')
         .avatar
         textarea.commentbox(ng-model="newcomment.body")
         input.userinput(ng-model="newcomment.author", placeholder='name here')
+        .loader
         button.submit(type='submit')
           i.fa.fa-plus-circle

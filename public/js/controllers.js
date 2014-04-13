@@ -23,6 +23,7 @@ appControllers.factory("httpService", ['$http', '$log', function($http, $log) {
         data: comment
       }).success(function(data, status, headers, config) { 
         console.log('RES STATUS: ' + status)
+        angular.element(".tip").addClass('animate-hide')
       }).error(function(data, status, headers, config) { 
 
       })

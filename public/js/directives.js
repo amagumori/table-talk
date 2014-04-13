@@ -28,7 +28,7 @@ angular.module('tableTalk.directives', []).
       restrict: 'E',
       replace: true,
       link: function(scope, el, attrs) { 
-        new Odometer({el: el[0], value: scope.comments.length })
+        new Odometer({el: el[0], value: scope.comments.length, theme: 'minimal' })
       }
     };
   });

@@ -12,13 +12,12 @@ block content
   script(src='/js/jquery/selections.js')
   script(src='/js/lib/spin.min.js')
   script(src='/js/lib/odometer.min.js')
-  link(rel='stylesheet', href='/css/odometer-theme-minimal.css')
   .row.top
     a(href='/')
       img#logo(ng-src='/img/tt-new.png')
   .row.content(ng-controller='indexCtrl')
     .col-lg-3.conversations
-      .comment(ng-click='showHighlight(comment)', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="{show: 'animate-show', hide: 'animate-hide' }") 
+      .comment(ng-click='showHighlight(comment)', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="'animate'") 
         .user
           .avatar
           .date {{comment.timestamp | date : 'MMM dd'}}
@@ -28,7 +27,7 @@ block content
     .col-lg-1.gutter.convo
         .numConvos(ng-click="convosOn = !convosOn")
           i.fa.fa-users 
-          {{comments.length}}
+          .foo(odometer) {{comments.length}}
         //a.commentptr(ng-repeat='comment in comments') {{comment.timestamp | date : 'MMM dd'}}
          i.fa.fa-asterisk.commentAsterisk
     .col-lg-5.article 

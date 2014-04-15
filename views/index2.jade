@@ -13,8 +13,18 @@ block content
   script(src='/js/lib/spin.min.js')
   script(src='/js/lib/odometer.min.js')
   .row.top
-    a(href='/')
-      img#logo(ng-src='/img/tt-new.png')
+    .col-md-3
+      a(href='/')
+        img#logo(ng-src='/img/tt-new.png')
+    .col-md-7.bookmarkholder
+      .numConvos(ng-click="convosOn = !convosOn")
+        .foo(odometer) 6 {{comments.length}}
+      #ribbon
+        .inset
+        .container(ng-click="convosOn = !convosOn")
+          .text 
+            .left_corner
+            .right_corner
   .row.content(ng-controller='indexCtrl')
     .col-lg-3.conversations
       .comment(ng-click='showHighlight(comment)', data-ng-repeat='comment in comments', ng-show="convosOn", ng-animate="'animate'") 
@@ -25,7 +35,7 @@ block content
         .replybtn
           i.fa.fa-reply
     .col-lg-1.gutter.convo
-        .numConvos(ng-click="convosOn = !convosOn")
+        //.numConvos(ng-click="convosOn = !convosOn")
           i.fa.fa-users 
           .foo(odometer) {{comments.length}}
         //a.commentptr(ng-repeat='comment in comments') {{comment.timestamp | date : 'MMM dd'}}

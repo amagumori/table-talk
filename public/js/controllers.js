@@ -141,7 +141,7 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
   
     // toggle convos - use ng-show instead?
     $scope.convosOn = null;
-
+    $scope.newcomment = {};   // dunno
     var getcomments = httpService.get();
 
     getcomments.success(function(data, status, headers, config) { 

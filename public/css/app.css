@@ -82,6 +82,7 @@ body {
   border-radius: 2px;
   max-height: 100%;
   min-height: 64px;
+  border: 1px solid #ffcccc;
 }
 
 .commentbody {
@@ -115,16 +116,16 @@ body {
 }
 
 .numConvos {
+  cursor: pointer;
   //float: left;
   font-size: 18px;
   color: white;
-  cursor: pointer;
   z-index: 100;
   position: absolute;
   left: 0;
   top: 18px;
   padding-left: 9px;
-  padding-right: 7px;
+  padding-right: 6px;
 }
 
 .date { 
@@ -404,7 +405,9 @@ body {
     top: -50px;
     height: 0px;
 }
+
 #ribbon {
+  cursor: pointer;
   width: 28px;
   height: 64px;
   margin: 0px auto 0;
@@ -470,6 +473,24 @@ body {
   background: -o-linear-gradient(top,  rgba(199,59,60,1) 0%,rgba(184,32,31,1) 100%);
   background: -ms-linear-gradient(top,  rgba(199,59,60,1) 0%,rgba(184,32,31,1) 100%);
   background: linear-gradient(top,  rgba(199,59,60,1) 0%,rgba(184,32,31,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c73b3c', endColorstr='#b8201f',GradientType=0 );
+
+  position: relative;
+  left: 4px;
+  z-index: 2;
+}
+
+#ribbon .base:hover {
+  height: 40px;
+  width: 28px;
+
+  background: rgb(219,79,80);
+  background: -moz-linear-gradient(top,  rgba(219,79,80,1) 0%, rgba(204,52,51,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(199,59,60,1)), color-stop(100%,rgba(204,52,51,1)));
+  background: -webkit-linear-gradient(top,  rgba(219,79,80,1) 0%,rgba(204,52,51,1) 100%);
+  background: -o-linear-gradient(top,  rgba(219,79,60,1) 0%,rgba(184,32,31,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(219,79,80,1) 0%,rgba(204,52,51,1) 100%);
+  background: linear-gradient(top,  rgba(219,79,80,1) 0%,rgba(204,52,51,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c73b3c', endColorstr='#b8201f',GradientType=0 );
 
   position: relative;

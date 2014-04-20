@@ -42,7 +42,7 @@ $(document).ready(function() {
     var windowSel = window.getSelection()
     if (windowSel) { 
       var sel = rangy.getSelection();
-      var rng = rangy.serializeSelection(sel, undefined, document);
+      var rng = rangy.serializeSelection(sel, true);
 
       scope.newcomment['selection'] = rng;
 
@@ -81,7 +81,9 @@ $(document).ready(function() {
   })
 
   $(".comment").click(function() { 
-    var el = angular.element(this);
+    var deserializedSel = rangy.deserializeSelection(this.comment['selection'])
+    console.log('deserialized selection: ' + deserializedSel)
+    rangy.highlightSelection('hilite')
   })
 
   $(".submit").click(function() { 

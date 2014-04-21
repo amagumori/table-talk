@@ -80,10 +80,15 @@ $(document).ready(function() {
     }
   })
 
+  var highlighted = false;
+
   $(".comment").click(function() { 
-    var deserializedSel = rangy.deserializeSelection(this.comment['selection'])
-    console.log('deserialized selection: ' + deserializedSel)
-    rangy.highlightSelection('hilite')
+    highlighted = !highlighted;
+    if (highlighted == false) {
+      $(this).css('border', '2px solid red')
+    } else {
+      $(this).css('border', '1px solid red')
+    }
   })
 
   $(".submit").click(function() { 

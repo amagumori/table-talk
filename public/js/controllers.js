@@ -165,7 +165,7 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
         rangy.deserializeSelection(this.comment['selection'])
         rangy.highlightSelection('hilite')
       } else {
-        rangy.removeAllHighlights();
+        //rangy.unhighlightSelection()
       }
 
     };

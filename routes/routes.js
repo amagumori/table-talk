@@ -3,9 +3,9 @@ var api = require('./api')
 
 var routes = function(app, jwt) {
 
-  app.get('/', index.index2);
+  app.get('/', index.splash);
 
-  app.get('/splash', index.splash);
+  app.get('/app', index.index2);
 
   app.get('/postarticle', index.postarticle);
 

@@ -141,7 +141,8 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
   
     // toggle convos - use ng-show instead?
     $scope.convosOn = null;
-    $scope.commentOn = false;
+    $scope.commentOn = 0;
+    $scope.formhidden = 0;
     $scope.newcomment = {};   // dunno
     var getcomments = httpService.get();
 
@@ -156,16 +157,18 @@ appControllers.controller('indexCtrl', ['$scope', '$http', 'httpService', functi
       var comment = $scope.newcomment;
       httpService.postComment(comment);
       $scope.comments.push(comment)
+      $scope.formhidden = 1;
     };
 
     $scope.showHighlight = function() { 
-      $scope.commentOn = !$scope.commentOn
+      $scope.commentOn = 1
       console.log('this serialized sel: ' + this.comment['selection'])
-      if (!$scope.commentOn) { 
+      if ($scope.commentOn == 0) { 
         rangy.deserializeSelection(this.comment['selection'])
         rangy.highlightSelection('hilite')
       } else {
-        //rangy.unhighlightSelection()
+        rangy.removeAllHighlights()
+        $scope.commentOn = 0
       }
 
     };

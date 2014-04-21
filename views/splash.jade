@@ -3,7 +3,8 @@ extends layouts/layout
 block content
   .splash_container(ng-controller='splashCtrl')
     video(id='video_bg', preload='auto', autoplay='true', loop='loop', muted, volume='0')
-      source(src='img/bulb2.mp4', type='video/mp4')
+      source(src='img/video/orange.mp4', type='video/mp4')
     h2.splash table talk
     .splash.splash_sm alpha 0.1
+    .splash.splash_sm text: jorge luis borges, 'library of forking paths'
     a.center(href='/') CLICK TO ENTER

@@ -7,7 +7,9 @@ var express = require('express'),
 
 var app = module.exports = express();
 
-mongoose.connect('mongodb://localhost/test')
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+
+mongoose.connect(mongoUri)
 
 var models_path = __dirname + '/backend/models'
   fs.readdirSync(models_path).forEach(function (file) {
